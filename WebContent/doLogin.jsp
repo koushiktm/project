@@ -21,14 +21,27 @@
   
     
     rsdoLogin=psdoLogin.executeQuery();
+    
     if(rsdoLogin.next())
     {
       response.sendRedirect("success.jsp?error="+message);
     }
     else
     {
+    	sqlOption="select * from login where Username='"+sUsername+"'";
+    	psdoLogin=conn.prepareStatement(sqlOption);
+    	rsdoLogin=psdoLogin.executeQuery();
+    	if(rsdoLogin.next())
+    	{
+    	message="Forgot Password?? Please Try Again";
+    	 response.sendRedirect("login.jsp?error="+message);
+    	
+    	}
+    	else
+    	{
       message="No user or password matched" ;
       response.sendRedirect("login.jsp?error="+message);
+    	}
     }
     }
     catch(Exception e)

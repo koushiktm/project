@@ -7,29 +7,34 @@
     ResultSet rsdoLogin = null;
     PreparedStatement psdoLogin=null;
     
-    String sUsername=request.getParameter("sUsername");
-    out.println(sUsername);
-    String sPassword=request.getParameter("sPassword");
-    out.println(sPassword);
-    String message="User login successfully ";
+    String sUsername=request.getParameter("username");
+    
+    String sPassword=request.getParameter("pass");
+    
+    String sFirstname=request.getParameter("fname");
+    String sLastname=request.getParameter("lname");
+    String sEmail=request.getParameter("email");
+    
+    String message="User Registered successfully";
     
     
     try{
-    String sqlOption="select Username,Password FROM login where Username='"+sUsername+"' and Password='"+sPassword+"'";
+    String sqlOption="insert into login(Email,Firstname,Lastname,Username,Password) values('"+sEmail+"','"+sFirstname+"','"+sLastname+"','"+sUsername+"','"+sPassword+"')";
    
     psdoLogin=conn.prepareStatement(sqlOption);
   
     
-    rsdoLogin=psdoLogin.executeQuery();
-    if(rsdoLogin.next())
+    psdoLogin.executeQuery();
+
+   // if(rsdoLogin.next())
     {
-      response.sendRedirect("success.jsp?error="+message);
-    }
-    else
-    {
-      message="No user or password matched" ;
       response.sendRedirect("login.jsp?error="+message);
     }
+   // else
+    {
+    //	 response.sendRedirect("login.jsp?error="+message);
+    }
+    
     }
     catch(Exception e)
     {
