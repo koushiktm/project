@@ -8,65 +8,61 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 function validate()
-	{
-	if(document.frmRegistration.pass.value != document.frmRegistration.cpass.value)
-		{
-		alert("Password Do not match");
-		document.frmRegistration.pass.focus();
-		return false;
-		}
-	else if(document.frmRegistration.pass.value.length < 8)
-		{
-		alert("Password Must be 8 characters long");
-		document.frmRegistration.pass.focus();
-		return false;
-		}
-	   var iChars = "!@#$%^&*()+=-[]\\\';,./{}|\":<>?";
+{
+	var testresults;
 
-       for (var i = 0; i < document.frmRegistration.fname.value.length; i++) {
-         if (iChars.indexOf(document.frmLogin.frmRegistration.fname.charAt(i)) != -1) {
-         alert ("Your Firstname has special characters. \nThese are not allowed.\n Please remove them and try again.");
+	var str=document.frmRegistration.email.value;
+	var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	if (!filter.test(str))
+	{
+		alert("Please input a valid email address!");
+		return false;
+	}
+
+	else if ((!document.frmRegistration.fname.value.match(/^[a-zA-Z]+$/)))
+     {
+		 document.frmRegistration.fname.value="";
+		 document.frmRegistration.fname.focus(); 
+         alert("Please Enter First Name in text");
          return false;
-         }
-         for (var i = 0; i < document.frmRegistration.lname.value.length; i++) {
-             if (iChars.indexOf(document.frmLogin.frmRegistration.lname.charAt(i)) != -1) {
-             alert ("Your Firstname has special characters. \nThese are not allowed.\n Please remove them and try again.");
-             return false;
-             }
-       }
-	
-	var testresults
-	
-	var str=document.frmRegistration.email.value
-	var filter=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
-	if (filter.test(str))
-	testresults=true
-	else
-	{
-	alert("Please input a valid email address!")
-	testresults=false
-	}
-	return (testresults)
-	}
-function clear()
-	{
-	document.frmRegistration.email.value="";
-	document.frmRegistration.fname.value="";
-	document.frmRegistration.lname.value="";
-	
-	}
+     }
+	else if ((!document.frmRegistration.lname.value.match(/^[a-zA-Z]+$/)))
+     {
+		 document.frmRegistration.lname.value="";
+		 document.frmRegistration.lname.focus(); 
+         alert("Please Enter Last Name in text");
+         return false;
+     }
+	else if((document.frmRegistration.username.value.length<=0))
+	 {
+	 alert("Please Enter Username Fields");
+	 return false;
+	 }
+	else if(document.frmRegistration.pass.value != document.frmRegistration.cpass.value)
+	 {
+	 alert("Password Do not match");
+	 document.frmRegistration.pass.focus();
+	 return false;
+	 }
+	 else if((document.frmRegistration.pass.value.length < 8) && (document.frmRegistration.pass.value==""))
+	 {
+	 alert("Password Must be 8 characters long");
+	 document.frmRegistration.pass.focus();
+	 return false;
+	 }
+}
 </script>
 </head>
-<body onContextMenu="return false">
+<body>
 <form method="post" name="frmRegistration" onSubmit="return validate();" action="doRegistration.jsp" onReset="return clear();">
 
 Email :<input type="text" name="email" /><br/>
 First name :<input type="text" name="fname" /><br/>
 Last name :<input type="text" name="lname" /><br/>
-User name :<input type="text" name="userid" /><br/>
+User name :<input type="text" name="username" /><br/>
 Password:<input type="password" size=25 name="pass"><br/>
 Confirm Password:<input type="password" name="cpass" size=25><br/>
-<input type="submit" value="Register" name="sSubmit"/><br/>
+<input type="submit" value="Register" name="sSubmit"/> &nbsp; &nbsp;
 <input type="reset" value="Reset" name="sReset"/><br/>
 </form>
 </body>
